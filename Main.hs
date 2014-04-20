@@ -79,7 +79,7 @@ usageAndExit = do
   exitFailure
 
 data VarUse = READ_USE | WRITE_USE
-            deriving (Show, Eq)
+            deriving (Show, Eq, Enum)
 
 annotateProgram :: CTranslUnit -> [Var] -> CTranslUnit
 annotateProgram ctu smVars =
@@ -151,7 +151,7 @@ wrapReadExpr e i =
         (Just
         (CCall
          (CVar (internalIdent "interleave_schedule_point") undefNode)
-         [ (CVar (internalIdent $ show READ_USE) undefNode)
+         [ (CVar (internalIdent $ show $ fromEnum READ_USE) undefNode)
          , (CVar (internalIdent "__FILE__") undefNode)
          , (CVar (internalIdent "__LINE__") undefNode)
          , (CConst (CStrConst (cString i) undefNode))
@@ -184,7 +184,7 @@ wrapWriteExpr e i =
         (Just
         (CCall
          (CVar (internalIdent "interleave_schedule_point") undefNode)
-         [ (CVar (internalIdent $ show WRITE_USE) undefNode)
+         [ (CVar (internalIdent $ show $ fromEnum WRITE_USE) undefNode)
          , (CVar (internalIdent "__FILE__") undefNode)
          , (CVar (internalIdent "__LINE__") undefNode)
          , (CConst (CStrConst (cString i) undefNode))

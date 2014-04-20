@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../interleave.h"
 
 int global_var = 0;
 
