@@ -1,0 +1,18 @@
+name:                interleave
+version:             0.1.0.0
+synopsis:            A simple tool for instrumenting C code to force various thread interleavings
+license:             MIT
+license-file:        LICENSE
+author:              Josh McGrath
+maintainer:          josh.mcgrath08@gmail.com
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable interleave
+  main-is:             Main.hs
+  build-depends:       base
+                     , directory
+                     , filepath
+                     , language-c
+                     , syb
+  default-language:    Haskell2010
