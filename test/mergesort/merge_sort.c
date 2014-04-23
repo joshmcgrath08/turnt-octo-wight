@@ -14,7 +14,6 @@ int tid = 0;
 pthread_mutex_t tid_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void merge_sort(int *buf, int size) {
-  int __sm_thread_id = tid;
   merge_sort_args *msa = (merge_sort_args *) malloc(sizeof(merge_sort_args));
   msa->buf = buf;
   msa->size = size;
@@ -27,7 +26,6 @@ void merge_sort(int *buf, int size) {
 
 void * merge_sort_aux(void *args) {
   merge_sort_args *msa = (merge_sort_args *) args;
-  int __sm_thread_id = msa->tid;
   pthread_mutex_lock(&num_threads_mutex);
 
   if (msa->size >= MIN_SPLIT_SIZE && num_threads < MAX_NUM_THREADS - 1) {

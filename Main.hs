@@ -15,11 +15,6 @@
 
 -- shouldn't use prefix or postfix operators on shared variables
 
--- currently requires that __sm_thread_id be in scope whenever
--- interleave_schedule_point is called. this could be replaced by
--- some magic using pthread_self, but that would be more
--- complicated
-
 module Main where
 
 import System.Environment(getArgs)
@@ -139,9 +134,6 @@ interestingLHS :: [Var] -> CExpr -> Maybe String
 interestingLHS vars = everything (<|>)
                       (mkQ Nothing (\x -> find (`elem` vars) [x]))
 
-threadIdVar :: String
-threadIdVar = "__sm_thread_id"
-
 wrapReadExpr :: CExpr -> String -> CExpr
 wrapReadExpr e i =
   (CStatExpr
@@ -155,7 +147,6 @@ wrapReadExpr e i =
          , (CVar (internalIdent "__FILE__") undefNode)
          , (CVar (internalIdent "__LINE__") undefNode)
          , (CConst (CStrConst (cString i) undefNode))
-         , (CVar (internalIdent threadIdVar) undefNode)
          ] undefNode)) undefNode)
     , CBlockStmt (CExpr (Just e) undefNode)
     ]
@@ -188,7 +179,6 @@ wrapWriteExpr e i =
          , (CVar (internalIdent "__FILE__") undefNode)
          , (CVar (internalIdent "__LINE__") undefNode)
          , (CConst (CStrConst (cString i) undefNode))
-         , (CVar (internalIdent threadIdVar) undefNode)
          ] undefNode)) undefNode)
     , CBlockStmt (CExpr
                   (Just (CVar (internalIdent tmpVar) undefNode))

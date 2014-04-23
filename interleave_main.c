@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include "exploration_graph.h"
+#include "interleave.h"
 
 #define MAX_NUM_TRIALS 1000
 #define MAX_NUM_STRESS_TRIALS 10000
@@ -43,7 +44,8 @@ int main (void) {
 #endif
     printf("BEGIN_PATH %d\n", i);
 #if !ONLY_STRESS
-    reset_curr_node ();
+    reset_curr_node();
+    reset_thread_map();
 #endif
     test_main ();
     printf("END PATH %d\n", i);

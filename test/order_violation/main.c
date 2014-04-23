@@ -7,13 +7,10 @@
 int *global_var = NULL;
 
 void * child_code (void *a) {
-  int __sm_thread_id = 1;
   *global_var = *global_var + 1;
 }
 
 int test_main (void) {
-  int __sm_thread_id = 0;
-
   pthread_t child;
   pthread_create(&child, NULL, child_code, NULL);
 
