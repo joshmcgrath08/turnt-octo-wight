@@ -11,8 +11,25 @@ requirements
 ------------
 - [Haskell Platform (preferably 7.6.*)](http://www.haskell.org/platform/)
 - gcc (version ?)
+- various cabal packages (install with `make install_dependencies` once
+  the Haskell platform is installed)
 
 [contest_ref]:https://www.research.ibm.com/haifa/projects/verification/contest/
+
+running
+-------
+`make tests`
+
+using
+-----
+To instrument all variables in your program:
+
+```
+SRCS=<your source files here>
+PATH_TO_MAKEFILE_INC=<path to Makefile.inc in this directory, not ending in '/'>
+
+include $(PATH_TO_MAKEFILE_INC)/Makefile.inc
+```
 
 caveats
 -------

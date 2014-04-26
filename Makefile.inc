@@ -8,6 +8,7 @@ EXE=main
 TOOL_SRCS=$(HERE)/interleave.c $(HERE)/interleave_main.c \
 	$(HERE)/exploration_graph.c
 
+# to run test (without instrumentation) until it fails
 .PHONY: stress
 stress: CPP_FLAGS=-DONLY_STRESS=1
 stress: stress_$(EXE)
@@ -18,6 +19,7 @@ pause: CPP_FLAGS=-DONLY_PAUSE=1
 pause: instrumented_$(EXE)
 	./$(EXE)
 
+# to run test instrumented with scheduler
 .PHONY: instrumented
 instrumented: CPP_FLAGS=
 instrumented: instrumented_$(EXE)
